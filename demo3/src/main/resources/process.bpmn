@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tns="http://www.example.org/process"
+    xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+    xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+    xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+    targetNamespace="http://www.example.org/process"
+    id="Definitions_1">
+    <process id="sampleProcess" isExecutable="true">
+        <startEvent id="startEvent"/>
+        <serviceTask id="serviceTask" name="Generate Random Data" implementation="RandomDataGenerator.class"/>
+        <exclusiveGateway id="exclusiveGateway"/>
+        <userTask id="taskA" name="Task A"/>
+        <userTask id="taskB" name="Task B"/>
+        <endEvent id="endEvent"/>
+
+        <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="serviceTask"/>
+        <sequenceFlow id="flow2" sourceRef="serviceTask" targetRef="exclusiveGateway"/>
+        <sequenceFlow id="flow3" sourceRef="exclusiveGateway" targetRef="taskA" name="postValue + randomData >= 100"/>
+        <sequenceFlow id="flow4" sourceRef="exclusiveGateway" targetRef="taskB" name="postValue + randomData < 100"/>
+        <sequenceFlow id="flow5" sourceRef="taskA" targetRef="endEvent"/>
+        <sequenceFlow id="flow6" sourceRef="taskB" targetRef="endEvent"/>
+    </process>
+</definitions>
